@@ -1,11 +1,12 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { SiteHeader } from '@/components/site-header'
 import { createClient } from '@/lib/supabase/server'
 import { JobCard } from '@/components/job-card'
 import type { Job } from '@/lib/types'
-import { Search, Send, Building2, ArrowRight } from 'lucide-react'
+import { ArrowRight, Building2, MapPin, Search, ShieldCheck, Sparkles, Users } from 'lucide-react'
+
+const popularSearches = ['Remote jobs', 'Software engineer', 'Marketing', 'Freshers', 'Data analyst']
 
 export default async function HomePage() {
   const supabase = await createClient()
@@ -14,127 +15,152 @@ export default async function HomePage() {
     .select('*, companies(*)')
     .eq('status', 'open')
     .order('created_at', { ascending: false })
-    .limit(4)
+    .limit(6)
 
   const featured = (jobs as Job[]) ?? []
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col bg-[#f4f8ff]">
       <SiteHeader />
 
       <main className="flex-1">
-        {/* Hero */}
-        <section className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 md:grid-cols-2 md:py-24">
-          <div className="flex flex-col gap-6">
-            <span className="inline-flex w-fit items-center gap-2 rounded-full bg-accent px-3 py-1 text-xs font-medium text-accent-foreground">
-              Now hiring across every industry
-            </span>
-            <h1 className="text-balance font-heading text-4xl font-bold leading-tight tracking-tight md:text-5xl">
-              Find the job that fits your life
+        <section className="border-b border-sky-100 bg-gradient-to-b from-white to-sky-50">
+          <div className="mx-auto max-w-6xl px-4 py-12 text-center md:py-16">
+            <p className="mb-3 text-sm font-semibold text-sky-500">India's hiring desk for growing teams</p>
+            <h1 className="mx-auto max-w-3xl text-balance text-4xl font-bold tracking-tight text-sky-700 md:text-5xl">
+              Find your dream job now
             </h1>
-            <p className="text-pretty text-lg leading-relaxed text-muted-foreground">
-              Hirely connects talented people with companies that are growing. Browse thousands of
-              roles, apply in one click, and track everything in one place.
+            <p className="mx-auto mt-3 max-w-2xl text-base text-sky-500 md:text-lg">
+              Search roles by title and location, apply quickly, and track every application from one dashboard.
             </p>
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <Button size="lg" render={<Link href="/jobs" />}>
-                Browse jobs
-                <ArrowRight className="ml-1 size-4" />
+
+            <form
+              action="/jobs"
+              className="mx-auto mt-8 grid max-w-4xl gap-3 rounded-2xl border border-sky-100 bg-white p-3 shadow-lg shadow-sky-100 md:grid-cols-[1fr_1fr_auto]"
+            >
+              <label className="flex items-center gap-3 rounded-xl border border-sky-100 px-4 py-3 text-left">
+                <Search className="size-5 text-sky-400" />
+                <input
+                  name="title"
+                  className="w-full bg-transparent text-sm text-sky-700 outline-none placeholder:text-sky-300"
+                  placeholder="Search by job title, skill, or company"
+                />
+              </label>
+              <label className="flex items-center gap-3 rounded-xl border border-sky-100 px-4 py-3 text-left">
+                <MapPin className="size-5 text-sky-400" />
+                <input
+                  name="location"
+                  className="w-full bg-transparent text-sm text-sky-700 outline-none placeholder:text-sky-300"
+                  placeholder="City, country, or remote"
+                />
+              </label>
+              <Button size="lg" type="submit" className="h-12 rounded-xl px-7">
+                Search
               </Button>
-              <Button size="lg" variant="outline" render={<Link href="/signup" />}>
-                Sign Up
-              </Button>
-            </div>
-          </div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border/60 shadow-sm">
-            <Image
-              src="/hero-workspace.png"
-              alt="Professionals collaborating in a modern office"
-              fill
-              priority
-              className="object-cover"
-            />
-          </div>
-        </section>
+            </form>
 
-        {/* How it works */}
-        <section className="border-y border-border/60 bg-muted/40">
-          <div className="mx-auto grid max-w-6xl gap-6 px-4 py-16 sm:grid-cols-3">
-            <Step
-              icon={<Search className="size-5" />}
-              title="Discover roles"
-              text="Search open positions by title, location, and type across every field."
-            />
-            <Step
-              icon={<Send className="size-5" />}
-              title="Apply instantly"
-              text="Submit your application in a single click and keep track of every one."
-            />
-            <Step
-              icon={<Building2 className="size-5" />}
-              title="Hire great people"
-              text="Employers post jobs and review applicants from a clean dashboard."
-            />
-          </div>
-        </section>
-
-        {/* Featured jobs */}
-        <section className="mx-auto max-w-6xl px-4 py-16">
-          <div className="mb-8 flex items-end justify-between">
-            <div>
-              <h2 className="font-heading text-2xl font-bold tracking-tight">Latest openings</h2>
-              <p className="mt-1 text-muted-foreground">Fresh roles added by employers on Hirely.</p>
-            </div>
-            <Button variant="ghost" className="hidden sm:inline-flex" render={<Link href="/jobs" />}>
-              View all
-              <ArrowRight className="ml-1 size-4" />
-            </Button>
-          </div>
-
-          {featured.length > 0 ? (
-            <div className="grid gap-4 sm:grid-cols-2">
-              {featured.map((job) => (
-                <JobCard key={job.id} job={job} />
+            <div className="mt-5 flex flex-wrap justify-center gap-2">
+              {popularSearches.map((item) => (
+                <Link
+                  key={item}
+                  href={`/jobs?title=${encodeURIComponent(item)}`}
+                  className="rounded-full border border-sky-100 bg-white px-4 py-2 text-sm font-medium text-sky-500 transition-colors hover:border-sky-300 hover:text-sky-700"
+                >
+                  {item}
+                </Link>
               ))}
             </div>
-          ) : (
-            <div className="rounded-xl border border-dashed border-border py-16 text-center text-muted-foreground">
-              No openings yet. Be the first to{' '}
-              <Link href="/signup" className="font-medium text-primary hover:underline">
-                post a job
-              </Link>
-              .
+          </div>
+        </section>
+
+        <section className="mx-auto grid max-w-6xl gap-4 px-4 py-8 md:grid-cols-3">
+          <TrustCard icon={<Building2 className="size-5" />} label="Verified employers" value="Post roles with company ownership" />
+          <TrustCard icon={<Users className="size-5" />} label="Simple applications" value="One-click apply for seekers" />
+          <TrustCard icon={<ShieldCheck className="size-5" />} label="Protected dashboards" value="Role-based access for every user" />
+        </section>
+
+        <section className="mx-auto grid max-w-6xl gap-6 px-4 pb-14 lg:grid-cols-[1fr_320px]">
+          <div>
+            <div className="mb-4 flex items-end justify-between">
+              <div>
+                <h2 className="text-2xl font-bold tracking-tight text-sky-700">Recommended jobs</h2>
+                <p className="mt-1 text-sm text-sky-500">Fresh open roles from employers on Hirely.</p>
+              </div>
+              <Button variant="ghost" className="hidden sm:inline-flex" render={<Link href="/jobs" />}>
+                View all
+                <ArrowRight className="ml-1 size-4" />
+              </Button>
             </div>
-          )}
+
+            {featured.length > 0 ? (
+              <div className="grid gap-4">
+                {featured.map((job) => (
+                  <JobCard key={job.id} job={job} />
+                ))}
+              </div>
+            ) : (
+              <div className="rounded-xl border border-dashed border-sky-200 bg-white py-14 text-center text-sky-500">
+                No openings yet. Be the first to{' '}
+                <Link href="/signup" className="font-semibold text-sky-600 hover:underline">
+                  post a job
+                </Link>
+                .
+              </div>
+            )}
+          </div>
+
+          <aside className="space-y-4">
+            <div className="rounded-xl border border-sky-100 bg-white p-5 shadow-sm">
+              <div className="flex items-center gap-2 text-sky-600">
+                <Sparkles className="size-5" />
+                <h3 className="font-semibold">Quick start</h3>
+              </div>
+              <div className="mt-4 space-y-3 text-sm text-sky-500">
+                <p>Create a seeker account to apply and track your applications.</p>
+                <p>Employers can create a company, post jobs, and review applicants.</p>
+              </div>
+              <Button className="mt-5 w-full" render={<Link href="/signup" />}>
+                Create account
+              </Button>
+            </div>
+
+            <div className="rounded-xl border border-sky-100 bg-white p-5 shadow-sm">
+              <h3 className="font-semibold text-sky-700">Popular categories</h3>
+              <div className="mt-4 grid gap-2">
+                {['Technology', 'Sales', 'Design', 'Operations'].map((item) => (
+                  <Link
+                    key={item}
+                    href={`/jobs?title=${encodeURIComponent(item)}`}
+                    className="rounded-lg border border-sky-100 px-3 py-2 text-sm font-medium text-sky-500 hover:border-sky-300 hover:text-sky-700"
+                  >
+                    {item}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </aside>
         </section>
       </main>
-
-      <footer className="border-t border-border/60">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 py-8 text-sm text-muted-foreground sm:flex-row">
-          <p>Hirely - Find your next role.</p>
-          <p>Built as a Phase 1 MVP.</p>
-        </div>
-      </footer>
     </div>
   )
 }
 
-function Step({
+function TrustCard({
   icon,
-  title,
-  text,
+  label,
+  value,
 }: {
   icon: React.ReactNode
-  title: string
-  text: string
+  label: string
+  value: string
 }) {
   return (
-    <div className="flex flex-col gap-3">
-      <span className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
-        {icon}
-      </span>
-      <h3 className="font-heading text-lg font-semibold">{title}</h3>
-      <p className="text-pretty leading-relaxed text-muted-foreground">{text}</p>
+    <div className="flex items-center gap-4 rounded-xl border border-sky-100 bg-white p-5 shadow-sm">
+      <span className="flex size-11 items-center justify-center rounded-xl bg-sky-50 text-sky-500">{icon}</span>
+      <div>
+        <p className="font-semibold text-sky-700">{label}</p>
+        <p className="text-sm text-sky-500">{value}</p>
+      </div>
     </div>
   )
 }

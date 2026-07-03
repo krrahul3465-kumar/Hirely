@@ -9,15 +9,15 @@ export function JobCard({ job }: { job: Job }) {
   return (
     <Link
       href={`/jobs/${job.id}`}
-      className="group flex flex-col gap-3 rounded-xl border border-border/60 bg-card p-5 transition-colors hover:border-primary/50 hover:bg-accent/30"
+      className="group flex flex-col gap-3 rounded-xl border border-sky-100 bg-white p-5 shadow-sm transition-colors hover:border-sky-300 hover:shadow-md"
     >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <h3 className="truncate font-heading text-base font-semibold group-hover:text-primary">
+          <h3 className="truncate text-lg font-semibold text-sky-700 group-hover:text-sky-600">
             {job.title}
           </h3>
           {job.companies?.name && (
-            <p className="mt-0.5 flex items-center gap-1 text-sm text-muted-foreground">
+            <p className="mt-1 flex items-center gap-1 text-sm text-sky-500">
               <Building2 className="size-3.5" />
               {job.companies.name}
             </p>
@@ -28,11 +28,11 @@ export function JobCard({ job }: { job: Job }) {
         </Badge>
       </div>
 
-      <p className="line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+      <p className="line-clamp-2 text-sm leading-relaxed text-sky-500">
         {job.description}
       </p>
 
-      <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
+      <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-sky-500">
         {job.location && (
           <span className="flex items-center gap-1">
             <MapPin className="size-3.5" />

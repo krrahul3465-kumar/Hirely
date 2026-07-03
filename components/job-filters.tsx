@@ -35,14 +35,14 @@ export function JobFilters() {
   return (
     <form
       onSubmit={applyFilters}
-      className="flex flex-col gap-3 rounded-xl border border-border/60 bg-card p-4 md:flex-row md:items-end"
+      className="flex flex-col gap-3 rounded-xl border border-sky-100 bg-white p-4 shadow-sm md:flex-row md:items-end"
     >
       <div className="flex flex-1 flex-col gap-1.5">
-        <label htmlFor="title" className="text-xs font-medium text-muted-foreground">
+        <label htmlFor="title" className="text-xs font-semibold text-sky-500">
           Title
         </label>
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+          <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-sky-400" />
           <Input
             id="title"
             value={title}
@@ -54,7 +54,7 @@ export function JobFilters() {
       </div>
 
       <div className="flex flex-1 flex-col gap-1.5">
-        <label htmlFor="location" className="text-xs font-medium text-muted-foreground">
+        <label htmlFor="location" className="text-xs font-semibold text-sky-500">
           Location
         </label>
         <Input
@@ -66,7 +66,7 @@ export function JobFilters() {
       </div>
 
       <div className="flex w-full flex-col gap-1.5 md:w-44">
-        <span className="text-xs font-medium text-muted-foreground">Job type</span>
+        <span className="text-xs font-semibold text-sky-500">Job type</span>
         <Select value={type} onValueChange={setType}>
           <SelectTrigger>
             <SelectValue placeholder="Any type" />

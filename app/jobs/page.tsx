@@ -27,13 +27,13 @@ export default async function JobsPage({
   const jobs = (data as Job[]) ?? []
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col bg-[#f4f8ff]">
       <SiteHeader />
 
       <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-10">
         <div className="mb-6">
-          <h1 className="font-heading text-3xl font-bold tracking-tight">Browse jobs</h1>
-          <p className="mt-1 text-muted-foreground">
+          <h1 className="text-3xl font-bold tracking-tight text-sky-700">Browse jobs</h1>
+          <p className="mt-1 text-sky-500">
             {jobs.length} open {jobs.length === 1 ? 'role' : 'roles'} waiting for you.
           </p>
         </div>
@@ -43,13 +43,13 @@ export default async function JobsPage({
         </div>
 
         {jobs.length > 0 ? (
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-4">
             {jobs.map((job) => (
               <JobCard key={job.id} job={job} />
             ))}
           </div>
         ) : (
-          <div className="rounded-xl border border-dashed border-border py-20 text-center text-muted-foreground">
+          <div className="rounded-xl border border-dashed border-sky-200 bg-white py-20 text-center text-sky-500">
             No jobs match your search. Try adjusting the filters.
           </div>
         )}

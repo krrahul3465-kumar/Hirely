@@ -8,19 +8,19 @@ export async function SiteHeader() {
   const { user, profile } = await getCurrentUser()
 
   return (
-    <header className="sticky top-0 z-40 border-b border-sky-100 bg-white/95 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-blue-100 bg-white/90 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
         <Link href="/" className="flex items-center gap-2">
-          <span className="flex size-9 items-center justify-center rounded-xl bg-sky-100 text-sky-600">
+          <span className="flex size-9 items-center justify-center rounded-xl bg-blue-50 text-primary ring-1 ring-blue-100">
             <Briefcase className="size-4" />
           </span>
-          <span className="text-xl font-bold tracking-tight text-sky-700">Hirely</span>
+          <span className="text-xl font-bold tracking-tight text-slate-900">Hirely</span>
         </Link>
 
         <nav className="flex items-center gap-2 sm:gap-4">
           <Link
             href="/jobs"
-            className="rounded-md px-3 py-2 text-sm font-semibold text-sky-500 transition-colors hover:text-sky-700"
+            className="rounded-md px-3 py-2 text-sm font-semibold text-slate-600 transition-colors hover:text-primary"
           >
             Browse jobs
           </Link>

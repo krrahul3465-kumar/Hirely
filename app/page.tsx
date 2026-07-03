@@ -26,37 +26,37 @@ export default async function HomePage() {
   const featured = (jobs as Job[]) ?? []
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#f4f8ff]">
+    <div className="flex min-h-screen flex-col bg-[#F8FAFC]">
       <SiteHeader />
 
       <main className="flex-1">
-        <section className="border-b border-sky-100 bg-gradient-to-b from-white to-sky-50">
+        <section className="border-b border-blue-100 bg-[radial-gradient(circle_at_top_left,rgba(6,182,212,0.18),transparent_34%),linear-gradient(180deg,#FFFFFF_0%,#F8FAFC_100%)]">
           <div className="mx-auto max-w-6xl px-4 py-12 text-center md:py-16">
-            <p className="mb-3 text-sm font-semibold text-sky-500">India's hiring desk for growing teams</p>
-            <h1 className="mx-auto max-w-3xl text-balance text-4xl font-bold tracking-tight text-sky-700 md:text-5xl">
+            <p className="mb-3 text-sm font-semibold text-cyan-600">India's hiring desk for growing teams</p>
+            <h1 className="mx-auto max-w-3xl text-balance text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">
               Find your dream job now
             </h1>
-            <p className="mx-auto mt-3 max-w-2xl text-base text-sky-500 md:text-lg">
+            <p className="mx-auto mt-3 max-w-2xl text-base text-slate-600 md:text-lg">
               Search roles by title and location, apply quickly, and track every application from one dashboard.
             </p>
 
             <form
               action="/jobs"
-              className="mx-auto mt-8 grid max-w-4xl gap-3 rounded-2xl border border-sky-100 bg-white p-3 shadow-lg shadow-sky-100 md:grid-cols-[1fr_1fr_auto]"
+              className="mx-auto mt-8 grid max-w-4xl gap-3 rounded-2xl border border-blue-100 bg-white p-3 shadow-xl shadow-blue-100/70 md:grid-cols-[1fr_1fr_auto]"
             >
-              <label className="flex items-center gap-3 rounded-xl border border-sky-100 px-4 py-3 text-left">
-                <Search className="size-5 text-sky-400" />
+              <label className="flex items-center gap-3 rounded-xl border border-blue-100 px-4 py-3 text-left">
+                <Search className="size-5 text-cyan-500" />
                 <input
                   name="title"
-                  className="w-full bg-transparent text-sm text-sky-700 outline-none placeholder:text-sky-300"
+                  className="w-full bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400"
                   placeholder="Search by job title, skill, or company"
                 />
               </label>
-              <label className="flex items-center gap-3 rounded-xl border border-sky-100 px-4 py-3 text-left">
-                <MapPin className="size-5 text-sky-400" />
+              <label className="flex items-center gap-3 rounded-xl border border-blue-100 px-4 py-3 text-left">
+                <MapPin className="size-5 text-cyan-500" />
                 <input
                   name="location"
-                  className="w-full bg-transparent text-sm text-sky-700 outline-none placeholder:text-sky-300"
+                  className="w-full bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400"
                   placeholder="City, country, or remote"
                 />
               </label>
@@ -70,7 +70,7 @@ export default async function HomePage() {
                 <Link
                   key={item}
                   href={`/jobs?title=${encodeURIComponent(item)}`}
-                  className="rounded-full border border-sky-100 bg-white px-4 py-2 text-sm font-medium text-sky-500 transition-colors hover:border-sky-300 hover:text-sky-700"
+                  className="rounded-full border border-blue-100 bg-white px-4 py-2 text-sm font-medium text-slate-600 transition-colors hover:border-cyan-300 hover:text-primary"
                 >
                   {item}
                 </Link>
@@ -89,8 +89,8 @@ export default async function HomePage() {
           <div>
             <div className="mb-4 flex items-end justify-between">
               <div>
-                <h2 className="text-2xl font-bold tracking-tight text-sky-700">Recommended jobs</h2>
-                <p className="mt-1 text-sm text-sky-500">Fresh open roles from employers on Hirely.</p>
+                <h2 className="text-2xl font-bold tracking-tight text-slate-900">Recommended jobs</h2>
+                <p className="mt-1 text-sm text-slate-600">Fresh open roles from employers on Hirely.</p>
               </div>
               <Button variant="ghost" className="hidden sm:inline-flex" render={<Link href="/jobs" />}>
                 View all
@@ -105,9 +105,9 @@ export default async function HomePage() {
                 ))}
               </div>
             ) : (
-              <div className="rounded-xl border border-dashed border-sky-200 bg-white py-14 text-center text-sky-500">
+              <div className="rounded-xl border border-dashed border-blue-200 bg-white py-14 text-center text-slate-600">
                 No openings yet. Be the first to{' '}
-                <Link href="/signup" className="font-semibold text-sky-600 hover:underline">
+                <Link href="/signup" className="font-semibold text-primary hover:underline">
                   post a job
                 </Link>
                 .
@@ -116,12 +116,12 @@ export default async function HomePage() {
           </div>
 
           <aside className="space-y-4">
-            <div className="rounded-xl border border-sky-100 bg-white p-5 shadow-sm">
-              <div className="flex items-center gap-2 text-sky-600">
+            <div className="rounded-xl border border-blue-100 bg-white p-5 shadow-sm shadow-slate-200/70">
+              <div className="flex items-center gap-2 text-cyan-600">
                 <Sparkles className="size-5" />
                 <h3 className="font-semibold">Quick start</h3>
               </div>
-              <div className="mt-4 space-y-3 text-sm text-sky-500">
+              <div className="mt-4 space-y-3 text-sm text-slate-600">
                 <p>Create a seeker account to apply and track your applications.</p>
                 <p>Employers can create a company, post jobs, and review applicants.</p>
               </div>
@@ -130,14 +130,14 @@ export default async function HomePage() {
               </Button>
             </div>
 
-            <div className="rounded-xl border border-sky-100 bg-white p-5 shadow-sm">
-              <h3 className="font-semibold text-sky-700">Popular categories</h3>
+            <div className="rounded-xl border border-blue-100 bg-white p-5 shadow-sm shadow-slate-200/70">
+              <h3 className="font-semibold text-slate-900">Popular categories</h3>
               <div className="mt-4 grid gap-2">
                 {['Technology', 'Sales', 'Design', 'Operations'].map((item) => (
                   <Link
                     key={item}
                     href={`/jobs?title=${encodeURIComponent(item)}`}
-                    className="rounded-lg border border-sky-100 px-3 py-2 text-sm font-medium text-sky-500 hover:border-sky-300 hover:text-sky-700"
+                    className="rounded-lg border border-blue-100 px-3 py-2 text-sm font-medium text-slate-600 hover:border-cyan-300 hover:text-primary"
                   >
                     {item}
                   </Link>
@@ -161,11 +161,11 @@ function TrustCard({
   value: string
 }) {
   return (
-    <div className="flex items-center gap-4 rounded-xl border border-sky-100 bg-white p-5 shadow-sm">
-      <span className="flex size-11 items-center justify-center rounded-xl bg-sky-50 text-sky-500">{icon}</span>
+    <div className="flex items-center gap-4 rounded-xl border border-blue-100 bg-white p-5 shadow-sm shadow-slate-200/70">
+      <span className="flex size-11 items-center justify-center rounded-xl bg-cyan-50 text-cyan-600">{icon}</span>
       <div>
-        <p className="font-semibold text-sky-700">{label}</p>
-        <p className="text-sm text-sky-500">{value}</p>
+        <p className="font-semibold text-slate-900">{label}</p>
+        <p className="text-sm text-slate-600">{value}</p>
       </div>
     </div>
   )

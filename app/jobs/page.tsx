@@ -15,10 +15,10 @@ export default async function JobsPage({
 
   if (!hasSupabaseEnv()) {
     return (
-      <div className="flex min-h-screen flex-col bg-[#f4f8ff]">
+      <div className="flex min-h-screen flex-col bg-[#F8FAFC]">
         <SiteHeader />
         <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-10">
-          <div className="rounded-xl border border-dashed border-sky-200 bg-white py-20 text-center text-sky-500">
+          <div className="rounded-xl border border-dashed border-blue-200 bg-white py-20 text-center text-slate-600">
             Jobs are temporarily unavailable.
           </div>
         </main>
@@ -42,13 +42,13 @@ export default async function JobsPage({
   const jobs = (data as Job[]) ?? []
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#f4f8ff]">
+    <div className="flex min-h-screen flex-col bg-[#F8FAFC]">
       <SiteHeader />
 
       <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-10">
         <div className="mb-6">
-          <h1 className="text-3xl font-bold tracking-tight text-sky-700">Browse jobs</h1>
-          <p className="mt-1 text-sky-500">
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900">Browse jobs</h1>
+          <p className="mt-1 text-slate-600">
             {jobs.length} open {jobs.length === 1 ? 'role' : 'roles'} waiting for you.
           </p>
         </div>
@@ -64,7 +64,7 @@ export default async function JobsPage({
             ))}
           </div>
         ) : (
-          <div className="rounded-xl border border-dashed border-sky-200 bg-white py-20 text-center text-sky-500">
+          <div className="rounded-xl border border-dashed border-blue-200 bg-white py-20 text-center text-slate-600">
             No jobs match your search. Try adjusting the filters.
           </div>
         )}

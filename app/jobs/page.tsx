@@ -2,6 +2,7 @@ import { SiteHeader } from '@/components/site-header'
 import { JobFilters } from '@/components/job-filters'
 import { JobCard } from '@/components/job-card'
 import { createClient } from '@/lib/supabase/server'
+import { hasSupabaseEnv } from '@/lib/supabase/env'
 import type { Job } from '@/lib/types'
 
 export default async function JobsPage({
@@ -11,6 +12,20 @@ export default async function JobsPage({
 }) {
   const { title, q, location, type } = await searchParams
   const titleFilter = title ?? q
+
+  if (!hasSupabaseEnv()) {
+    return (
+      <div className="flex min-h-screen flex-col bg-[#f4f8ff]">
+        <SiteHeader />
+        <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-10">
+          <div className="rounded-xl border border-dashed border-sky-200 bg-white py-20 text-center text-sky-500">
+            Jobs are temporarily unavailable.
+          </div>
+        </main>
+      </div>
+    )
+  }
+
   const supabase = await createClient()
 
   let query = supabase

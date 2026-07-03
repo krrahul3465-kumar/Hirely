@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { SiteHeader } from '@/components/site-header'
 import { createClient } from '@/lib/supabase/server'
+import { hasSupabaseEnv } from '@/lib/supabase/env'
 import { JobCard } from '@/components/job-card'
 import type { Job } from '@/lib/types'
 import { ArrowRight, Building2, MapPin, Search, ShieldCheck, Sparkles, Users } from 'lucide-react'
@@ -9,13 +10,18 @@ import { ArrowRight, Building2, MapPin, Search, ShieldCheck, Sparkles, Users } f
 const popularSearches = ['Remote jobs', 'Software engineer', 'Marketing', 'Freshers', 'Data analyst']
 
 export default async function HomePage() {
-  const supabase = await createClient()
-  const { data: jobs } = await supabase
-    .from('jobs')
-    .select('*, companies(*)')
-    .eq('status', 'open')
-    .order('created_at', { ascending: false })
-    .limit(6)
+  let jobs = null
+
+  if (hasSupabaseEnv()) {
+    const supabase = await createClient()
+    const { data } = await supabase
+      .from('jobs')
+      .select('*, companies(*)')
+      .eq('status', 'open')
+      .order('created_at', { ascending: false })
+      .limit(6)
+    jobs = data
+  }
 
   const featured = (jobs as Job[]) ?? []
 

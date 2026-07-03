@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
+import { hasSupabaseEnv } from '@/lib/supabase/env'
 import type { Profile } from '@/lib/types'
 
 /**
@@ -6,6 +7,10 @@ import type { Profile } from '@/lib/types'
  * Returns null values when there is no session.
  */
 export async function getCurrentUser() {
+  if (!hasSupabaseEnv()) {
+    return { user: null, profile: null as Profile | null }
+  }
+
   const supabase = await createClient()
   const {
     data: { user },

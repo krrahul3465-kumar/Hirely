@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { ApplyButton } from '@/components/apply-button'
 import { createClient } from '@/lib/supabase/server'
+import { hasSupabaseEnv } from '@/lib/supabase/env'
 import { getCurrentUser } from '@/lib/get-user'
 import { JOB_TYPE_LABELS, formatSalary, type Job } from '@/lib/types'
 import { MapPin, Building2, Banknote, ArrowLeft, CalendarDays } from 'lucide-react'
@@ -15,6 +16,8 @@ export default async function JobDetailPage({
   params: Promise<{ id: string }>
 }) {
   const { id } = await params
+  if (!hasSupabaseEnv()) notFound()
+
   const supabase = await createClient()
 
   const { data } = await supabase

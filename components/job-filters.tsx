@@ -1,0 +1,90 @@
+'use client'
+
+import type React from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { useState } from 'react'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { Search } from 'lucide-react'
+import { JOB_TYPE_LABELS } from '@/lib/types'
+
+export function JobFilters() {
+  const router = useRouter()
+  const params = useSearchParams()
+
+  const [q, setQ] = useState(params.get('q') ?? '')
+  const [location, setLocation] = useState(params.get('location') ?? '')
+  const [type, setType] = useState(params.get('type') ?? 'all')
+
+  const applyFilters = (e?: React.FormEvent) => {
+    e?.preventDefault()
+    const next = new URLSearchParams()
+    if (q.trim()) next.set('q', q.trim())
+    if (location.trim()) next.set('location', location.trim())
+    if (type && type !== 'all') next.set('type', type)
+    router.push(`/jobs?${next.toString()}`)
+  }
+
+  return (
+    <form
+      onSubmit={applyFilters}
+      className="flex flex-col gap-3 rounded-xl border border-border/60 bg-card p-4 md:flex-row md:items-end"
+    >
+      <div className="flex flex-1 flex-col gap-1.5">
+        <label htmlFor="q" className="text-xs font-medium text-muted-foreground">
+          Keyword
+        </label>
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            id="q"
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="Title or keyword"
+            className="pl-9"
+          />
+        </div>
+      </div>
+
+      <div className="flex flex-1 flex-col gap-1.5">
+        <label htmlFor="location" className="text-xs font-medium text-muted-foreground">
+          Location
+        </label>
+        <Input
+          id="location"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+          placeholder="City or Remote"
+        />
+      </div>
+
+      <div className="flex w-full flex-col gap-1.5 md:w-44">
+        <span className="text-xs font-medium text-muted-foreground">Job type</span>
+        <Select value={type} onValueChange={setType}>
+          <SelectTrigger>
+            <SelectValue placeholder="Any type" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">Any type</SelectItem>
+            {Object.entries(JOB_TYPE_LABELS).map(([value, label]) => (
+              <SelectItem key={value} value={value}>
+                {label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+
+      <Button type="submit" className="md:w-auto">
+        Search
+      </Button>
+    </form>
+  )
+}

@@ -7,9 +7,10 @@ import type { Job } from '@/lib/types'
 export default async function JobsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string; location?: string; type?: string }>
+  searchParams: Promise<{ title?: string; q?: string; location?: string; type?: string }>
 }) {
-  const { q, location, type } = await searchParams
+  const { title, q, location, type } = await searchParams
+  const titleFilter = title ?? q
   const supabase = await createClient()
 
   let query = supabase
@@ -18,7 +19,7 @@ export default async function JobsPage({
     .eq('status', 'open')
     .order('created_at', { ascending: false })
 
-  if (q) query = query.ilike('title', `%${q}%`)
+  if (titleFilter) query = query.ilike('title', `%${titleFilter}%`)
   if (location) query = query.ilike('location', `%${location}%`)
   if (type) query = query.eq('job_type', type)
 

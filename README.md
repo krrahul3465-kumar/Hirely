@@ -1,33 +1,65 @@
-# job-portal-mvp
+# Job Portal MVP
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [v0](https://v0.app).
+Phase 1 job portal built with Next.js App Router, TypeScript, Tailwind CSS, and Supabase Auth/Postgres.
 
-## Built with v0
+## Features
 
-This repository is linked to a [v0](https://v0.app) project. You can continue developing by visiting the link below -- start new chats to make changes, and v0 will push commits directly to this repo. Every merge to `main` will automatically deploy.
+- Public landing page and open job browsing
+- Job title, location, and job type filters
+- Email/password auth with seeker and employer roles
+- Seeker dashboard with submitted applications
+- Employer dashboard with posted jobs and applicant lists
+- Employer job posting flow with lazy company creation
+- Supabase migration with tables, signup profile trigger, and RLS policies
 
-[Continue working on v0 →](https://v0.app/chat/projects/prj_bnt7nlDcA7RKzvEIk9U0OndGISzW)
+## Setup
 
-## Getting Started
+1. Install dependencies:
 
-First, run the development server:
+```bash
+npm install
+```
+
+2. Copy the environment template and fill in your Supabase project values:
+
+```bash
+cp .env.local.example .env.local
+```
+
+3. Apply the database migration in Supabase:
+
+```bash
+supabase db push
+```
+
+The migration lives at `supabase/migrations/001_init.sql`.
+
+4. Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Main Routes
 
-## Learn More
+- `/` - landing page
+- `/jobs` - browse open jobs
+- `/jobs/[id]` - job detail and seeker application action
+- `/login` - email/password login
+- `/signup` - role-based signup
+- `/dashboard/seeker` - seeker applications
+- `/dashboard/employer` - employer jobs
+- `/dashboard/employer/post` - post a job
+- `/dashboard/employer/jobs/[id]/applicants` - read-only applicant list
 
-To learn more, take a look at the following resources:
+## Verification
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-- [v0 Documentation](https://v0.app/docs) - learn about v0 and how to use it.
+Run a production build before deploying:
+
+```bash
+npm run build
+```
+
+This workspace currently needs Node/npm available on PATH for local verification.

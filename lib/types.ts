@@ -8,6 +8,7 @@ export interface Profile {
   id: string
   role: UserRole
   full_name: string | null
+  email: string | null
   created_at: string
 }
 
@@ -49,7 +50,7 @@ export const JOB_TYPE_LABELS: Record<JobType, string> = {
 export function formatSalary(min: number | null, max: number | null): string | null {
   const fmt = (n: number) =>
     n >= 1000 ? `$${Math.round(n / 1000)}k` : `$${n}`
-  if (min && max) return `${fmt(min)} – ${fmt(max)}`
+  if (min && max) return `${fmt(min)} - ${fmt(max)}`
   if (min) return `From ${fmt(min)}`
   if (max) return `Up to ${fmt(max)}`
   return null

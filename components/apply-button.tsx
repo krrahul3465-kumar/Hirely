@@ -48,7 +48,7 @@ export function ApplyButton({
     return (
       <Button size="lg" disabled className="w-full sm:w-auto">
         <Check className="mr-1 size-4" />
-        Applied
+        Already Applied
       </Button>
     )
   }
@@ -56,7 +56,7 @@ export function ApplyButton({
   return (
     <Button size="lg" onClick={handleApply} disabled={loading} className="w-full sm:w-auto">
       <Send className="mr-1 size-4" />
-      {loading ? 'Applying...' : 'Apply now'}
+      {loading ? 'Applying...' : 'Apply'}
     </Button>
   )
 }

@@ -11,8 +11,8 @@ import { Plus, Users, MapPin, Briefcase } from 'lucide-react'
 
 export default async function EmployerDashboard() {
   const { user, profile } = await getCurrentUser()
-  if (!user) redirect('/auth/login')
-  if (profile?.role !== 'employer') redirect('/dashboard')
+  if (!user) redirect('/login')
+  if (profile?.role !== 'employer') redirect('/dashboard/seeker')
 
   const company = await ensureCompany(user.id, profile.full_name)
   const supabase = await createClient()
@@ -49,11 +49,9 @@ export default async function EmployerDashboard() {
             <h1 className="font-heading text-3xl font-bold tracking-tight">{company.name}</h1>
             <p className="mt-1 text-muted-foreground">Manage your job postings and applicants.</p>
           </div>
-          <Button asChild>
-            <Link href="/employer/jobs/new">
-              <Plus className="mr-1 size-4" />
-              Post a job
-            </Link>
+          <Button render={<Link href="/dashboard/employer/post" />}>
+            <Plus className="mr-1 size-4" />
+            Post a job
           </Button>
         </div>
 
@@ -96,13 +94,11 @@ export default async function EmployerDashboard() {
                     </div>
                   </div>
                   <div className="flex shrink-0 gap-2">
-                    <Button asChild variant="outline" size="sm">
-                      <Link href={`/jobs/${job.id}`}>View</Link>
+                    <Button variant="outline" size="sm" render={<Link href={`/jobs/${job.id}`} />}>
+                      View
                     </Button>
-                    <Button asChild size="sm">
-                      <Link href={`/employer/jobs/${job.id}/applicants`}>
-                        Applicants ({count})
-                      </Link>
+                    <Button size="sm" render={<Link href={`/dashboard/employer/jobs/${job.id}/applicants`} />}>
+                      Applicants ({count})
                     </Button>
                   </div>
                 </li>
@@ -112,8 +108,8 @@ export default async function EmployerDashboard() {
         ) : (
           <div className="rounded-xl border border-dashed border-border py-16 text-center">
             <p className="text-muted-foreground">You haven&apos;t posted any jobs yet.</p>
-            <Button asChild className="mt-4">
-              <Link href="/employer/jobs/new">Post your first job</Link>
+            <Button className="mt-4" render={<Link href="/dashboard/employer/post" />}>
+              Post your first job
             </Button>
           </div>
         )}

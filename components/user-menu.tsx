@@ -49,7 +49,7 @@ export function UserMenu({
           <span className="text-xs font-normal capitalize text-muted-foreground">{role}</span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem render={<Link href={role === 'employer' ? '/employer' : '/dashboard'} />}>
+        <DropdownMenuItem render={<Link href={role === 'employer' ? '/dashboard/employer' : '/dashboard/seeker'} />}>
           <LayoutDashboard className="mr-2 size-4" />
           Dashboard
         </DropdownMenuItem>

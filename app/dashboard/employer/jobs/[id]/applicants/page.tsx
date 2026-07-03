@@ -15,8 +15,8 @@ export default async function ApplicantsPage({
 }) {
   const { id } = await params
   const { user, profile } = await getCurrentUser()
-  if (!user) redirect('/auth/login')
-  if (profile?.role !== 'employer') redirect('/dashboard')
+  if (!user) redirect('/login')
+  if (profile?.role !== 'employer') redirect('/dashboard/seeker')
 
   const supabase = await createClient()
 
@@ -29,7 +29,7 @@ export default async function ApplicantsPage({
 
   const job = jobData as Job | null
   if (!job) notFound()
-  if (job.companies?.owner_id !== user.id) redirect('/employer')
+  if (job.companies?.owner_id !== user.id) redirect('/dashboard/employer')
 
   const { data: apps } = await supabase
     .from('applications')
@@ -57,11 +57,9 @@ export default async function ApplicantsPage({
       <SiteHeader />
 
       <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-10">
-        <Button asChild variant="ghost" size="sm" className="mb-6 -ml-2">
-          <Link href="/employer">
-            <ArrowLeft className="mr-1 size-4" />
-            Back to dashboard
-          </Link>
+        <Button variant="ghost" size="sm" className="mb-6 -ml-2" render={<Link href="/dashboard/employer" />}>
+          <ArrowLeft className="mr-1 size-4" />
+          Back to dashboard
         </Button>
 
         <div className="mb-6">
@@ -89,6 +87,9 @@ export default async function ApplicantsPage({
                     </span>
                     <div>
                       <p className="font-medium">{seeker?.full_name ?? 'Anonymous applicant'}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {seeker?.email ?? 'Email unavailable'}
+                      </p>
                       <p className="text-sm text-muted-foreground">
                         Applied {new Date(app.applied_at).toLocaleDateString()}
                       </p>

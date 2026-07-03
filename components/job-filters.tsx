@@ -19,14 +19,14 @@ export function JobFilters() {
   const router = useRouter()
   const params = useSearchParams()
 
-  const [q, setQ] = useState(params.get('q') ?? '')
+  const [title, setTitle] = useState(params.get('title') ?? params.get('q') ?? '')
   const [location, setLocation] = useState(params.get('location') ?? '')
   const [type, setType] = useState(params.get('type') ?? 'all')
 
   const applyFilters = (e?: React.FormEvent) => {
     e?.preventDefault()
     const next = new URLSearchParams()
-    if (q.trim()) next.set('q', q.trim())
+    if (title.trim()) next.set('title', title.trim())
     if (location.trim()) next.set('location', location.trim())
     if (type && type !== 'all') next.set('type', type)
     router.push(`/jobs?${next.toString()}`)
@@ -38,16 +38,16 @@ export function JobFilters() {
       className="flex flex-col gap-3 rounded-xl border border-border/60 bg-card p-4 md:flex-row md:items-end"
     >
       <div className="flex flex-1 flex-col gap-1.5">
-        <label htmlFor="q" className="text-xs font-medium text-muted-foreground">
-          Keyword
+        <label htmlFor="title" className="text-xs font-medium text-muted-foreground">
+          Title
         </label>
         <div className="relative">
           <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
           <Input
-            id="q"
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-            placeholder="Title or keyword"
+            id="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Job title"
             className="pl-9"
           />
         </div>

@@ -19,7 +19,7 @@ export default function SignUpSuccessPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Button className="w-full" render={<Link href="/auth/login" />}>
+          <Button className="w-full" render={<Link href="/login" />}>
             Go to sign in
           </Button>
         </CardContent>

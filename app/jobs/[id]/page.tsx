@@ -131,7 +131,7 @@ function ApplySection({
     return (
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm text-muted-foreground">Sign in as a job seeker to apply.</p>
-        <Button size="lg" className="w-full sm:w-auto" render={<Link href="/auth/login" />}>
+        <Button size="lg" className="w-full sm:w-auto" render={<Link href="/login" />}>
           Sign in to apply
         </Button>
       </div>

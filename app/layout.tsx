@@ -15,7 +15,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Hirely — Find your next role',
+  title: 'Hirely - Find your next role',
   description:
     'Hirely connects job seekers with employers. Browse open roles, apply in one click, and manage your hiring pipeline.',
   generator: 'v0.app',

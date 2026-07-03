@@ -6,8 +6,8 @@ import { PostJobForm } from '@/components/post-job-form'
 
 export default async function NewJobPage() {
   const { user, profile } = await getCurrentUser()
-  if (!user) redirect('/auth/login')
-  if (profile?.role !== 'employer') redirect('/dashboard')
+  if (!user) redirect('/login')
+  if (profile?.role !== 'employer') redirect('/dashboard/seeker')
 
   const company = await ensureCompany(user.id, profile.full_name)
 

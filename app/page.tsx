@@ -41,8 +41,8 @@ export default async function HomePage() {
                 Browse jobs
                 <ArrowRight className="ml-1 size-4" />
               </Button>
-              <Button size="lg" variant="outline" render={<Link href="/auth/sign-up" />}>
-                Post a job
+              <Button size="lg" variant="outline" render={<Link href="/signup" />}>
+                Sign Up
               </Button>
             </div>
           </div>
@@ -100,7 +100,7 @@ export default async function HomePage() {
           ) : (
             <div className="rounded-xl border border-dashed border-border py-16 text-center text-muted-foreground">
               No openings yet. Be the first to{' '}
-              <Link href="/auth/sign-up" className="font-medium text-primary hover:underline">
+              <Link href="/signup" className="font-medium text-primary hover:underline">
                 post a job
               </Link>
               .
@@ -111,7 +111,7 @@ export default async function HomePage() {
 
       <footer className="border-t border-border/60">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 py-8 text-sm text-muted-foreground sm:flex-row">
-          <p>Hirely — Find your next role.</p>
+          <p>Hirely - Find your next role.</p>
           <p>Built as a Phase 1 MVP.</p>
         </div>
       </footer>

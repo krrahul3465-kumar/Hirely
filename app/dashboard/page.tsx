@@ -16,8 +16,8 @@ interface ApplicationRow {
 
 export default async function SeekerDashboard() {
   const { user, profile } = await getCurrentUser()
-  if (!user) redirect('/auth/login')
-  if (profile?.role === 'employer') redirect('/employer')
+  if (!user) redirect('/login')
+  if (profile?.role === 'employer') redirect('/dashboard/employer')
 
   const supabase = await createClient()
   const { data } = await supabase

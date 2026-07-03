@@ -56,7 +56,7 @@ export function PostJobForm({ companyId }: { companyId: string }) {
     }
 
     toast.success('Job posted!')
-    router.push('/employer')
+    router.push('/dashboard/employer')
     router.refresh()
   }
 
@@ -114,7 +114,7 @@ export function PostJobForm({ companyId }: { companyId: string }) {
           </div>
 
           <div className="flex justify-end gap-3">
-            <Button type="button" variant="outline" onClick={() => router.push('/employer')}>
+            <Button type="button" variant="outline" onClick={() => router.push('/dashboard/employer')}>
               Cancel
             </Button>
             <Button type="submit" disabled={loading}>

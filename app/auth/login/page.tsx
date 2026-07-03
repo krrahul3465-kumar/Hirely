@@ -38,7 +38,7 @@ export default function LoginPage() {
         .eq('id', user!.id)
         .single()
 
-      router.push(profile?.role === 'employer' ? '/employer' : '/dashboard')
+      router.push(profile?.role === 'employer' ? '/dashboard/employer' : '/dashboard/seeker')
       router.refresh()
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'An error occurred')
@@ -88,7 +88,7 @@ export default function LoginPage() {
 
           <p className="mt-6 text-center text-sm text-muted-foreground">
             Don&apos;t have an account?{' '}
-            <Link href="/auth/sign-up" className="font-medium text-primary underline-offset-4 hover:underline">
+            <Link href="/signup" className="font-medium text-primary underline-offset-4 hover:underline">
               Sign up
             </Link>
           </p>

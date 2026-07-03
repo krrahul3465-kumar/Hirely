@@ -28,7 +28,7 @@ export async function SiteHeader() {
           {user && profile ? (
             <>
               {profile.role === 'employer' && (
-                <Button size="sm" className="hidden sm:inline-flex" render={<Link href="/employer/jobs/new" />}>
+                <Button size="sm" className="hidden sm:inline-flex" render={<Link href="/dashboard/employer/post" />}>
                   Post a job
                 </Button>
               )}
@@ -36,10 +36,10 @@ export async function SiteHeader() {
             </>
           ) : (
             <>
-              <Button variant="ghost" size="sm" render={<Link href="/auth/login" />}>
+              <Button variant="ghost" size="sm" render={<Link href="/login" />}>
                 Sign in
               </Button>
-              <Button size="sm" render={<Link href="/auth/sign-up" />}>
+              <Button size="sm" render={<Link href="/signup" />}>
                 Get started
               </Button>
             </>
